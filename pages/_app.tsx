@@ -30,7 +30,7 @@ function Corruptions({ Component, pageProps }) {
           property="og:description"
           content="See the floor price of Corruption(s*) deviations."
         />
-        <meta property="og:image" content="https://robes.market/og.png" />
+        <meta property="og:image" content="/og.png" />
         <script
           data-goatcounter="https://corruptions.goatcounter.com/count"
           async

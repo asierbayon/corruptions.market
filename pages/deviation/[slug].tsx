@@ -4,6 +4,7 @@ import TraitPage from '../../components/trait-page'
 import { useRouter } from 'next/router'
 import { CorruptionTypes } from '../../utils/corruptionTypes'
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 
 export async function getStaticProps() {
   return {
@@ -32,7 +33,7 @@ export default function IndexPage() {
   const router = useRouter()
   const { slug } = router.query
 
-  let deviation;
+  let deviation
   const [corruptions, setCorruptions] = useState([])
   const [lastUpdate, setLastUpdate] = useState('')
 
@@ -77,12 +78,26 @@ export default function IndexPage() {
 
   if (corruptions.length > 0 && slug.length > 0) {
     return (
-      <TraitPage
-        trait={Array.isArray(slug) ? slug[0] : slug}
-        corruptions={corruptions}
-        lastUpdate={lastUpdate}
-      />
+      <>
+        <Link href="/">
+          <p className="m-4 text-2xl font-bold cursor-pointer">{'(*)'}</p>
+        </Link>
+        <TraitPage
+          trait={Array.isArray(slug) ? slug[0] : slug}
+          corruptions={corruptions}
+          lastUpdate={lastUpdate}
+        />
+      </>
     )
   }
-  return <p>Loading...</p>
+  return (
+    <>
+      <Link href="/">
+        <p className="m-4 text-2xl font-bold cursor-pointer">{'(*)'}</p>
+      </Link>
+      <div className="flex  h-screen">
+        <p className="m-auto">Loading...</p>
+      </div>
+    </>
+  )
 }

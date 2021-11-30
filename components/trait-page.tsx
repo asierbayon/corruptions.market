@@ -20,7 +20,7 @@ const TraitPage = ({ trait, corruptions, lastUpdate }: Props) => {
             The floor price is {corruptions[0].price} ETH.
           </p>
           <p className="md:text-lg pt-2">
-            Site by{' '}
+            Developed by{' '}
             <a
               target="_blank"
               href="https://twitter.com/asier_bayon"

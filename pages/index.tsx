@@ -1,8 +1,9 @@
-import { ICorruptionsInfo, fetchCorruptions } from './api/apotheosis'
+import { ICorruptionsInfo, fetchCorruptions } from '../api'
+import ApotheosisIDs from '../data/apotheosis-ids.json';
 import { format as ts } from 'timeago.js'
 
 export async function getStaticProps() {
-  const data = await fetchCorruptions()
+  const data = await fetchCorruptions(ApotheosisIDs)
   return {
     props: {
       corruptions: data.corruptions,

@@ -32,7 +32,7 @@ function Corruptions({ Component, pageProps }) {
         />
         <meta property="og:image" content="https://robes.market/og.png" />
         <script
-          data-goatcounter="https://divinerobes.goatcounter.com/count"
+          data-goatcounter="https://corruptions.goatcounter.com/count"
           async
           src="//gc.zgo.at/count.js"
         ></script>

@@ -1,22 +1,21 @@
-import { NextApiRequest, NextApiResponse } from 'next'
 import pMap from 'p-map'
 import { chunk, flatten, orderBy } from 'lodash'
 import { utils as etherUtils, BigNumber } from 'ethers'
-import type { OpenseaResponse, Asset } from '../../../utils/openseaTypes'
-import ApotheosisIDs from '../../../data/apotheosis-ids.json'
+import type { OpenseaResponse, Asset } from '../utils/openseaTypes'
 
-const chunked = chunk(ApotheosisIDs, 20)
 const apiKey = process.env.OPENSEA_API_KEY
 
 const fetchCorruptionsPage = async (ids: string[]) => {
   let url = 'https://api.opensea.io/api/v1/assets?collection=corruption-s&'
   url += ids.map((id) => `token_ids=${id}`).join('&')
 
-  const res = await fetch(url/* , {
-    headers: {
-      'X-API-KEY': apiKey,
-    },
-  } */)
+  const res = await fetch(
+    url /* , {
+            headers: {
+                'X-API-KEY': apiKey,
+            },
+        } */,
+  )
   const json: OpenseaResponse = await res.json()
 
   return Promise.all(
@@ -36,7 +35,8 @@ export interface ICorruptionsInfo {
   image: string
 }
 
-export const fetchCorruptions = async () => {
+export const fetchCorruptions = async (traitIds) => {
+  const chunked = chunk(traitIds, 20)
   const data = await pMap(chunked, fetchCorruptionsPage, { concurrency: 2 })
   const mapped = flatten(data)
     .filter(
@@ -61,14 +61,3 @@ export const fetchCorruptions = async () => {
     lastUpdate: new Date().toISOString(),
   }
 }
-
-const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
-  try {
-    const data = await fetchCorruptions()
-    res.status(200).json(data)
-  } catch (err) {
-    res.status(500).json({ statusCode: 500, message: err.message })
-  }
-}
-
-export default handler

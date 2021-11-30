@@ -1,6 +1,7 @@
 import 'tailwindcss/tailwind.css'
 import Head from 'next/head'
-function Robes({ Component, pageProps }) {
+
+function Corruptions({ Component, pageProps }) {
   return (
     <>
       <Component {...pageProps} />
@@ -14,20 +15,20 @@ function Robes({ Component, pageProps }) {
         `}
       </style>
       <Head>
-        <title>robes.market</title>
+        <title>corruptions.market</title>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;600;700&display=swap"
           rel="stylesheet"
         />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:creator" content="@worm_emoji" />
-        <meta property="og:url" content="https://robes.market" />
-        <meta property="og:title" content="robes.market" />
+        <meta name="twitter:creator" content="@asier_bayon" />
+        <meta property="og:url" content="https://corruptions.market" />
+        <meta property="og:title" content="corruptions.market" />
         <link rel="icon" type="image/png" href="/favicon.png" />
         <meta
           property="og:description"
-          content="See the floor price of Divine Robes from the Loot project."
+          content="See the floor price of Corruption(s*) deviations."
         />
         <meta property="og:image" content="https://robes.market/og.png" />
         <script
@@ -40,4 +41,4 @@ function Robes({ Component, pageProps }) {
   )
 }
 
-export default Robes
+export default Corruptions

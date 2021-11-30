@@ -1,11 +1,11 @@
-import { RobeInfo, fetchRobes } from './api/robes'
+import { ICorruptionsInfo, fetchCorruptions } from './api/apotheosis'
 import { format as ts } from 'timeago.js'
 
 export async function getStaticProps() {
-  const data = await fetchRobes()
+  const data = await fetchCorruptions()
   return {
     props: {
-      robes: data.robes,
+      corruptions: data.corruptions,
       lastUpdate: data.lastUpdate,
     },
     revalidate: 300,
@@ -13,57 +13,59 @@ export async function getStaticProps() {
 }
 
 interface Props {
-  robes: RobeInfo[]
+  corruptions: ICorruptionsInfo[]
   lastUpdate: string
 }
 
-const Robe = ({ robe }: { robe: RobeInfo }) => {
+const Card = ({ corruption }: { corruption: ICorruptionsInfo }) => {
   return (
-    <a href={robe.url} target="_blank">
-      <div className="m-auto pb-4 mb-8 flex flex-col justify-center items-center gap-2 p-4 md:m-4 border border-white transform hover:scale-105 transition-all bg-black w-full md:w-96">
-        <img src={robe.svg} alt="" width="350" height="350" />
+    <a href={corruption.url} target="_blank">
+      <div className="m-auto pb-4 mb-8 flex flex-col justify-center items-center gap-2 p-4 md:m-4 transform hover:scale-105 transition-all bg-black w-full md:w-96">
+        <img src={corruption.image} alt="" width="350" height="350" />
         <div className="text-center">
-          <p className="text-lg">#{robe.id}</p>
-          <p>{robe.price} ETH</p>
+          <p className="text-lg">#{corruption.id}</p>
+          <p>{corruption.price} ETH</p>
         </div>
       </div>
     </a>
   )
 }
 
-const IndexPage = ({ robes, lastUpdate }: Props) => {
+const IndexPage = ({ corruptions, lastUpdate }: Props) => {
   return (
     <div className="py-3 md:pb-0 font-mono flex flex-col justify-center items-center gap-4 pt-10 md:w-screen">
-      <h1 className="text-lg md:text-3xl">Divine Robes</h1>
+      <h1 className="text-lg md:text-3xl">Apotheosis</h1>
       <div className="text-center max-w-screen-md md:leading-loose">
         <p className="md:text-xl">
-          There are {robes.length} bags for sale with Divine Robes. The floor
-          price is {robes[0].price} ETH.
+          There are {corruptions.length} corruptions for sale with APOTHEOSIS.
+        </p>
+        <p className="md:text-xl">
+          The floor price is {corruptions[0].price} ETH.
         </p>
         <p className="md:text-lg pt-2">
           Site by{' '}
           <a
             target="_blank"
-            href="https://twitter.com/worm_emoji"
+            href="https://twitter.com/asier_bayon"
             className="underline"
           >
-            worm_emoji
+            @asier_bayon
           </a>
-          . Join the{' '}
+          . This site is{' '}
           <a
             target="_blank"
             className="underline"
-            href="https://divineroles.vercel.app"
+            href="https://github.com/asierbayon/corruptions.market"
           >
-            Discord
+            open-source
           </a>
           .
         </p>
         <p className="text-sm mv-4">Last updated {ts(lastUpdate)}</p>
       </div>
       <div className="grid md:grid-cols-2 pt-5">
-        {robes.map((robe) => {
-          return <Robe robe={robe} key={robe.id} />
+        {corruptions.map((corruption) => {
+          return <Card corruption={corruption} key={corruption.id} />
         })}
       </div>
     </div>
